@@ -6,7 +6,6 @@ jQuery(document).ready(function($) {
     var f = $(this).find('.form-group'),
       ferror = false,
       emailExp = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;
-
     f.children('input').each(function() { // run all inputs
 
       var i = $(this); // current input
@@ -92,15 +91,15 @@ jQuery(document).ready(function($) {
     else var str = $(this).serialize();
     var action = $(this).attr('action');
     if( ! action ) {
-      action = 'contactform/contactform.php';
+      action = 'https://script.google.com/macros/s/AKfycbzGvfcDwc5VYTFE00Yyx93x5OLSu5WxdDc2l8vOB6Ow3iZJs7o/exec';
     }
     $.ajax({
-      type: "POST",
+      type: "GET",
       url: action,
       data: str,
       success: function(msg) {
-        // alert(msg);
-        if (msg == 'OK') {
+        console.dir(msg);
+        if (msg && msg.result === 'success') {
           $("#sendmessage").addClass("show");
           $("#errormessage").removeClass("show");
           $('.contactForm').find("input, textarea").val("");
@@ -109,7 +108,6 @@ jQuery(document).ready(function($) {
           $("#errormessage").addClass("show");
           $('#errormessage').html(msg);
         }
-
       }
     });
     return false;
